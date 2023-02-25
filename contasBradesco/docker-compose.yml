@@ -1,0 +1,16 @@
+version: '2.1'
+services:
+  mongodblearning:
+    image: mongo:4.2.6
+    container_name: mongodblearningConta
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - MONGO_DATA:/data/db
+    ports:
+      - 27017:27017
+    command: mongod
+
+volumes:
+  MONGO_DATA:

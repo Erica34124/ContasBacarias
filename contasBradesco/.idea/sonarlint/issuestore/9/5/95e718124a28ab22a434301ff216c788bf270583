@@ -1,0 +1,8 @@
+
+@
+java:S5411"*Use the primitive boolean expression here.(åÖª¶
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(§Ã•¯ıÿÿÿÿ
+g
+java:S3655"JCall "conta.isPresent()" or "!conta.isEmpty()" before accessing the value.(µ»Ë8‘úàùæ0
+=
+java:S1125"'Remove the unnecessary boolean literal.(åÖª¶
