@@ -4,9 +4,7 @@ import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -24,7 +22,7 @@ public class AtivarConta implements Validar {
             contaRepository.save(conta.get());
             return (Corrente) conta.get();
         } else {
-            if (conta.get().getAtivo() == true){
+            if (conta.get().getAtivo() == true) {
                 conta.get().setAtivo(false);
                 ((Corrente) conta.get()).setChequeEspecial(false);
                 contaRepository.save(conta.get());
@@ -42,18 +40,21 @@ public class AtivarConta implements Validar {
             return true;
         }
         conta.setAtivo(false);
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Cheque especial não aprovado");
+        return false;
+//        throw new ResponseStatusException
+//                (HttpStatus.NOT_FOUND, "Cheque especial não aprovado");
     }
 
     @Override
     public Boolean validarContaNegativada(Conta conta) {
-        if (conta.getSaldo() >= 0) {
+        if (conta.getSaldo() > 0) {
             conta.setAtivo(true);
             return true;
         }
         conta.setAtivo(false);
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Conta negativa");
+        return false;
+//        throw new ResponseStatusException
+//                (HttpStatus.NOT_FOUND, "Conta negativa");
+
     }
 }

@@ -1,7 +1,7 @@
 package com.bradesco.banco.service.clienteservices;
 
 import com.bradesco.banco.domain.Conta;
-import com.bradesco.banco.dto.ContaClienteDao;
+import com.bradesco.banco.response.dto.ContaClienteDao;
 
 import java.util.Optional;
 

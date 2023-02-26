@@ -1,7 +1,7 @@
 package com.bradesco.banco.request;
 
 
-import com.bradesco.banco.dto.Clientes;
+import com.bradesco.banco.response.dto.Clientes;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;

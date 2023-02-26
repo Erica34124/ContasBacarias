@@ -1,8 +1,8 @@
 package com.bradesco.banco.service.clienteservices;
 
 import com.bradesco.banco.domain.Conta;
-import com.bradesco.banco.dto.Clientes;
-import com.bradesco.banco.dto.ContaClienteDao;
+import com.bradesco.banco.response.dto.Clientes;
+import com.bradesco.banco.response.dto.ContaClienteDao;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

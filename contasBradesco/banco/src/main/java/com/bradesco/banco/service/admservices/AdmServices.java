@@ -4,7 +4,7 @@ import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.ContaSaldo;
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
-import com.bradesco.banco.dto.Clientes;
+import com.bradesco.banco.response.dto.Clientes;
 import com.bradesco.banco.request.ClienteRequest;
 import com.bradesco.banco.repository.ClienteRepository;
 import com.bradesco.banco.repository.ContaRepository;
