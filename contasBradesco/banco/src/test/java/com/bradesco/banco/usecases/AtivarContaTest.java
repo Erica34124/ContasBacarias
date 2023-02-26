@@ -2,14 +2,28 @@ package com.bradesco.banco.usecases;
 
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
+import com.bradesco.banco.repository.ContaRepository;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AtivarContaTest {
+    @InjectMocks
+    ContaRepository contaRepository;
 
     @Test
     void isAtiva() {
+        // Arrange
+        AtivarConta ativarConta = new AtivarConta();
+        Poupanca conta = new Poupanca("123",true,"456",
+                "erica", 2000.0,"master", 0.02 );
+//        String id = conta.getId();
+//        //Action
+//        Corrente c = ativarConta.isAtiva(id);
+//        boolean isTrue = c.getAtivo();
+//        //Assert
+//        assertTrue(isTrue);
     }
 
     @Test

@@ -37,5 +37,3 @@ econtasBradesco/banco/src/main/java/com/bradesco/banco/service/clienteservices/H
 icontasBradesco/banco/src/test/java/com/bradesco/banco/service/clienteservices/HelperContaClienteTest.java,6/e/6efcdea996db5ec461b22dc2f9a5e1d73063015b
 Ž
 ^contasBradesco/banco/src/main/java/com/bradesco/banco/usecases/ValidarLimiteCartaoCredito.java,c/4/c4dfe1d69fbd165a5a26588c6471c1fa943552a7
-w
-GcontasBradesco/banco/src/main/java/com/bradesco/banco/domain/Conta.java,f/c/fc71458486887639971e0eb6b6c1881376c643a8
