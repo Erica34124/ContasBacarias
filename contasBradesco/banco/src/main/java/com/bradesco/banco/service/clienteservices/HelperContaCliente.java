@@ -14,8 +14,11 @@ import java.util.Optional;
 import static com.bradesco.banco.request.ClienteRequest.consultaCliente;
 @Service
 public class HelperContaCliente {
+    private ContaRepository contaRepository;
     @Autowired
-    ContaRepository contaRepository;
+    public HelperContaCliente(ContaRepository contaRepository) {
+        this.contaRepository = contaRepository;
+    }
 
     public ContaClienteDao converterClienteConta(String contaId) {
         Optional<Conta> conta = contaRepository.findById(contaId);

@@ -4,8 +4,8 @@ package com.bradesco.banco.usecases;
 import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.Corrente;
 
-public interface Validar {
+public interface Validacoes {
     Boolean validarContaNegativada(Conta conta);
 
-    Boolean validarChequeEspecial(Corrente conta);
+    Boolean validarChequeEspecial(Corrente corrente);
 }

@@ -6,7 +6,9 @@ import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
 import com.bradesco.banco.response.dto.Clientes;
 import com.bradesco.banco.service.admservices.AdmServices;
-import com.bradesco.banco.usecases.AtivarConta;
+import com.bradesco.banco.usecases.AtivarChequeEspecial;
+import com.bradesco.banco.usecases.ValidarLimiteCartaoCredito;
+import com.bradesco.banco.usecases.VerificacaoContasInativas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +33,11 @@ public class AdmServicesController {
     @Autowired
     AdmServices admServices;
     @Autowired
-    AtivarConta ativarConta;
+    AtivarChequeEspecial ativarChequeEspecial;
+    @Autowired
+    VerificacaoContasInativas verificacaoContasInativas;
+    @Autowired
+    ValidarLimiteCartaoCredito validarLimiteCartaoCredito;
 
    @PostMapping(path = "/cadastrar/poupanca")
     public ResponseEntity<Poupanca> cadastrarPoupanca(@RequestBody @Validated Poupanca poupanca){
@@ -58,12 +64,20 @@ public class AdmServicesController {
     public ResponseEntity<Conta> buscarContaPorId(@PathVariable(name = "id") String id){
         return ResponseEntity.ok(this.admServices.buscarContaPorId(id));
     }
-    @GetMapping(path = "/ativarConta/{id}")
-    public ResponseEntity<Conta> isAtiva(@PathVariable(name = "id", required = false) String id){
-        return ResponseEntity.ok(this.ativarConta.isAtiva(id));
+    @PostMapping(path = "/ativarChequeEspecial/{id}")
+    public ResponseEntity<Conta> AtivarChequeEspecial(@PathVariable(name = "id", required = false) String id){
+        return ResponseEntity.ok(ativarChequeEspecial.validarChequeEspecial(id));
+    }
+    @PostMapping(path = "/verificarContasAtivas/{id}")
+    public ResponseEntity<Conta> verificarContasAtivas(@PathVariable(name = "id", required = false) String id){
+        return ResponseEntity.ok(verificacaoContasInativas.validarContaNegativada(id));
     }
     @GetMapping(path = "/buscarClientePorId/{id}")
     public ResponseEntity<Clientes> buscarClientePorId(@PathVariable(name = "id", required = true) String id){
         return ResponseEntity.ok(this.admServices.buscarClientePorId(id));
+    }
+    @GetMapping(path = "/validarLimiteCartãoDeCredito/{id}")
+    public Double validarLimiteCartãoDeCredito(@PathVariable(name = "id", required = true) String id){
+        return this.validarLimiteCartaoCredito.validarLimiteCartaoCredito(id);
     }
 }
