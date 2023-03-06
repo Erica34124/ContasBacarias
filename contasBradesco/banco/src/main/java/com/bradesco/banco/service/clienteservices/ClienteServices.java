@@ -1,15 +1,20 @@
 package com.bradesco.banco.service.clienteservices;
 
 import com.bradesco.banco.domain.Conta;
+import com.bradesco.banco.exceptions.ExceptionsType;
+import com.bradesco.banco.exceptions.PersonExceptions;
 import com.bradesco.banco.response.dto.ContaClienteDao;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+
+import static com.bradesco.banco.exceptions.ExceptionsType.CONTA_NAO_ENCONTRADA;
+import static com.bradesco.banco.exceptions.ExceptionsType.SALDO_INSUFICIENTE;
+import static com.bradesco.banco.exceptions.ExceptionsType.SERVICO_INATIVO;
+
 @Service
 public class ClienteServices implements IclienteServices {
     @Autowired
@@ -20,31 +25,36 @@ public class ClienteServices implements IclienteServices {
 
     @Override
     public Object sacar(String id, Double valor) {
-        Optional<Conta> conta = this.contaRepository.findById(id);
-        if (conta.isPresent() && conta.get().getSaldo() >= valor) {
-            saldo = (conta.get().getSaldo());
-            conta.get().setSaldo(saldo -= valor);
-            contaRepository.save(conta.get());
-            return conta;
+        Optional<Conta> contaDados = this.contaRepository.findById(id);
+
+        if (contaDados.isPresent()) {
+            Conta conta = contaDados.get();
+            if (conta.getSaldo() >= valor) {
+                saldo = (conta.getSaldo());
+                conta.setSaldo(saldo -= valor);
+                contaRepository.save(conta);
+            } else {
+                throw new PersonExceptions(ExceptionsType.valueOf(SALDO_INSUFICIENTE.getMessage()));
+            }
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Conta não encontrada");
+        return contaDados;
     }
 
     @Override
     public Object depositar(String id, Double valor) {
-        Optional<Conta> conta = this.contaRepository.findById(id);
+        Optional<Conta> contaRequest = this.contaRepository.findById(id);
 
-        if (conta.isPresent()) {
-            Double capitalAtual = conta.get().getSaldo();
+        if (contaRequest.isPresent()) {
+            Conta conta = contaRequest.get();
+            Double capitalAtual = conta.getSaldo();
             capitalAtual += valor;
-            conta.get().setSaldo(capitalAtual);
-            contaRepository.save(conta.get());
-            return conta;
+            conta.setSaldo(capitalAtual);
+            contaRepository.save(conta);
+            return contaRequest;
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, " não encontrado");
+        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
+
 
     @Override
     public Optional<Conta> consularSaldo(String id) {
@@ -52,8 +62,7 @@ public class ClienteServices implements IclienteServices {
         if (conta.isPresent()) {
             return conta;
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Cliente não encontrado");
+        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -70,8 +79,7 @@ public class ClienteServices implements IclienteServices {
 
             return true;
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Cliente não encontrado");
+        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -79,8 +87,7 @@ public class ClienteServices implements IclienteServices {
         try {
             return helperContaCliente.converterClienteConta(contaId);
         } catch (ResourceAccessException exception) {
-            throw new ResponseStatusException
-                    (HttpStatus.SERVICE_UNAVAILABLE, "Serviço inativo ");
+            throw new PersonExceptions(ExceptionsType.valueOf(SERVICO_INATIVO.getMessage()));
         }
     }
 }

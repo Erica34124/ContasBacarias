@@ -4,6 +4,8 @@ import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.ContaSaldo;
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
+import com.bradesco.banco.exceptions.ExceptionsType;
+import com.bradesco.banco.exceptions.PersonExceptions;
 import com.bradesco.banco.response.dto.Clientes;
 import com.bradesco.banco.request.ClienteRequest;
 import com.bradesco.banco.repository.ClienteRepository;
@@ -34,8 +36,7 @@ public class AdmServices implements IadmServices{
            conta.setId(UUID.randomUUID().toString());
             return this.repository.save(conta);
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Cliente não encontrado");
+        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.NAO_CADASTRADO.getMessage()));
     }
 
     @Override
@@ -45,8 +46,7 @@ public class AdmServices implements IadmServices{
             conta.setId(UUID.randomUUID().toString());
             return this.repository.save(conta);
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Cliente não encontrado");
+        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.NAO_CADASTRADO.getMessage()));
     }
 
     @Override
@@ -55,8 +55,7 @@ public class AdmServices implements IadmServices{
         if (conta.isPresent()) {
             return HelperConversor.conversor(conta.get());
         }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Conta não encontrada");
+        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -65,8 +64,7 @@ public class AdmServices implements IadmServices{
         if (conta.isPresent()) {
         return conta.get();
     }
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Conta não encontrada");
+        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.CONTA_NAO_ENCONTRADA.getMessage()).getMessage());
     }
 
     @Override

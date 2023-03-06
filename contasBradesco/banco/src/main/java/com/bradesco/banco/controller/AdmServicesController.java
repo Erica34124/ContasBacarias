@@ -1,5 +1,6 @@
 package com.bradesco.banco.controller;
 
+import com.bradesco.banco.exceptions.PersonExceptions;
 import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.ContaSaldo;
 import com.bradesco.banco.domain.Corrente;
@@ -65,7 +66,7 @@ public class AdmServicesController {
         return ResponseEntity.ok(this.admServices.buscarContaPorId(id));
     }
     @PostMapping(path = "/ativarChequeEspecial/{id}")
-    public ResponseEntity<Conta> AtivarChequeEspecial(@PathVariable(name = "id", required = false) String id){
+    public ResponseEntity<Conta> AtivarChequeEspecial(@PathVariable(name = "id", required = false) String id) throws PersonExceptions {
         return ResponseEntity.ok(ativarChequeEspecial.validarChequeEspecial(id));
     }
     @PostMapping(path = "/verificarContasAtivas/{id}")
