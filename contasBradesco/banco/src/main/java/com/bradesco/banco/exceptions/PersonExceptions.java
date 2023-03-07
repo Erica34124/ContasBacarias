@@ -5,10 +5,8 @@ public class PersonExceptions extends RuntimeException {
     private ExceptionsType exceptionsType;
 
     public PersonExceptions(ExceptionsType exceptionClasse) {
-         this.exceptionsType = exceptionClasse;
-    }
-
-    public PersonExceptions(String message) {
+         super(exceptionClasse.name());
+        this.exceptionsType = exceptionClasse;
     }
 
     public ExceptionsType getExceptionsType() {

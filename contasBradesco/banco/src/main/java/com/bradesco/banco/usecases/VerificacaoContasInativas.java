@@ -1,13 +1,15 @@
 package com.bradesco.banco.usecases;
 
 import com.bradesco.banco.domain.Conta;
+import com.bradesco.banco.exceptions.ExceptionsType;
+import com.bradesco.banco.exceptions.PersonExceptions;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
+
+import static com.bradesco.banco.exceptions.ExceptionsType.CONTA_INATIVA;
 
 @Service
 public class VerificacaoContasInativas {
@@ -16,6 +18,7 @@ public class VerificacaoContasInativas {
 
     public Conta validarContaNegativada(String id) {
         Optional<Conta> conta = contaRepository.findById(id);
+
         if (conta.isPresent()) {
             if (conta.get().getSaldo() > 0) {
                 conta.get().setAtivo(true);
@@ -24,8 +27,6 @@ public class VerificacaoContasInativas {
             }
             return contaRepository.save(conta.get());
         }
-        //criar classe de excessões - user defined exception
-        throw new ResponseStatusException
-                (HttpStatus.NOT_FOUND, "Conta não encontrada. ");
+        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_INATIVA.getMessage()));
     }
 }

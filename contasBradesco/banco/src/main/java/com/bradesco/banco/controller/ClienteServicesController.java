@@ -33,6 +33,7 @@ public class ClienteServicesController {
     public ResponseEntity<Optional<Conta>> consultaSaldo(@PathVariable(name = "id") String id){
         return ResponseEntity.ok(this.clienteServices.consularSaldo(id)) ;
     }
+
     @GetMapping(path = "/buscarDadosCompletos/{id}")
     public ResponseEntity<ContaClienteDao> MonstraDadosConta(@PathVariable(name = "id") String id){
         return ResponseEntity.ok(this.clienteServices.buscarDadosCompletos(id));
@@ -50,5 +51,4 @@ public class ClienteServicesController {
                                             @PathVariable(name = "valor") Double valor){
         return ResponseEntity.ok(this.clienteServices.tranferir(idO, idD, valor));
     }
-
 }

@@ -44,14 +44,17 @@ public class AdmServicesController {
     public ResponseEntity<Poupanca> cadastrarPoupanca(@RequestBody @Validated Poupanca poupanca){
         return ResponseEntity.ok(this.admServices.cadastrarPoupanca(poupanca));
     }
+
     @PostMapping(path = "/cadastrar/corrente")
     public ResponseEntity<Corrente> cadastrarCorrente(@RequestBody Corrente corrente){
         return ResponseEntity.ok(this.admServices.cadastrarCorrente(corrente));
     }
+
     @GetMapping(path = "/buscarTodos")
     public ResponseEntity<List<Conta>> buscarTodos(){
         return ResponseEntity.ok(this.admServices.lista());
     }
+
     @GetMapping("/mostraDadosContaPaginada")
     public Page<Conta> MonstraDadosContaPaginada(@PageableDefault (page = 0, size = 10, sort = {"nome"}, direction = DESC)Pageable pageable) {
         return this.admServices.mostrarDadosDaContaPagina(pageable);
@@ -61,22 +64,27 @@ public class AdmServicesController {
     public ResponseEntity<ContaSaldo> buscarContaSaldoPorId(@PathVariable(name = "id") String id){
         return ResponseEntity.ok(this.admServices.buscarContaSaldoPorId(id));
     }
+
     @GetMapping(path = "/buscarContaPorId/{id}")
     public ResponseEntity<Conta> buscarContaPorId(@PathVariable(name = "id") String id){
         return ResponseEntity.ok(this.admServices.buscarContaPorId(id));
     }
+
     @PostMapping(path = "/ativarChequeEspecial/{id}")
     public ResponseEntity<Conta> AtivarChequeEspecial(@PathVariable(name = "id", required = false) String id) throws PersonExceptions {
         return ResponseEntity.ok(ativarChequeEspecial.validarChequeEspecial(id));
     }
+
     @PostMapping(path = "/verificarContasAtivas/{id}")
     public ResponseEntity<Conta> verificarContasAtivas(@PathVariable(name = "id", required = false) String id){
         return ResponseEntity.ok(verificacaoContasInativas.validarContaNegativada(id));
     }
+
     @GetMapping(path = "/buscarClientePorId/{id}")
     public ResponseEntity<Clientes> buscarClientePorId(@PathVariable(name = "id", required = true) String id){
         return ResponseEntity.ok(this.admServices.buscarClientePorId(id));
     }
+
     @GetMapping(path = "/validarLimiteCartãoDeCredito/{id}")
     public Double validarLimiteCartãoDeCredito(@PathVariable(name = "id", required = true) String id){
         return this.validarLimiteCartaoCredito.validarLimiteCartaoCredito(id);

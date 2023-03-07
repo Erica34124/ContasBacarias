@@ -33,11 +33,10 @@ public class ClienteServices implements IclienteServices {
                 saldo = (conta.getSaldo());
                 conta.setSaldo(saldo -= valor);
                 contaRepository.save(conta);
-            } else {
-                throw new PersonExceptions(ExceptionsType.valueOf(SALDO_INSUFICIENTE.getMessage()));
+                return contaDados;
             }
         }
-        return contaDados;
+        throw new PersonExceptions(ExceptionsType.valueOf(SALDO_INSUFICIENTE.getMessage()));
     }
 
     @Override
@@ -55,10 +54,10 @@ public class ClienteServices implements IclienteServices {
         throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
-
     @Override
     public Optional<Conta> consularSaldo(String id) {
         Optional<Conta> conta = this.contaRepository.findById(id);
+
         if (conta.isPresent()) {
             return conta;
         }
@@ -70,12 +69,15 @@ public class ClienteServices implements IclienteServices {
         Optional<Conta> origem = this.contaRepository.findById(idOrigem.getId());
         Optional<Conta> destino = this.contaRepository.findById(idDestino.getId());
 
-        if (origem.isPresent() && destino.isPresent() && origem.get().getSaldo() >= valor) {
-            String co = origem.get().getId();
-            String cd = destino.get().getId();
+        if (origem.isPresent() && destino.isPresent()) {
+            if (origem.get().getSaldo() >= valor) {
 
-            this.sacar(co, valor);
-            this.depositar(cd, valor);
+                String co = origem.get().getId();
+                String cd = destino.get().getId();
+
+                this.sacar(co, valor);
+                this.depositar(cd, valor);
+            }
 
             return true;
         }
@@ -86,7 +88,7 @@ public class ClienteServices implements IclienteServices {
     public ContaClienteDao buscarDadosCompletos(String contaId) {
         try {
             return helperContaCliente.converterClienteConta(contaId);
-        } catch (ResourceAccessException exception) {
+        } catch (IllegalArgumentException exception) {
             throw new PersonExceptions(ExceptionsType.valueOf(SERVICO_INATIVO.getMessage()));
         }
     }

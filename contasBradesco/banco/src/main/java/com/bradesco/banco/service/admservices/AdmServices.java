@@ -31,7 +31,8 @@ public class AdmServices implements IadmServices{
     ClienteRequest clienteRequest;
     @Override
     public Poupanca cadastrarPoupanca(Poupanca conta) {
-        Optional<Clientes> cliente = clienteRepository.findById(conta.getClienteId());//busca pelo id do cliente pelo id recebido no do body
+        Optional<Clientes> cliente = clienteRepository.findById(conta.getClienteId());
+
         if (cliente.isPresent()) {
            conta.setId(UUID.randomUUID().toString());
             return this.repository.save(conta);
@@ -64,7 +65,7 @@ public class AdmServices implements IadmServices{
         if (conta.isPresent()) {
         return conta.get();
     }
-        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.CONTA_NAO_ENCONTRADA.getMessage()).getMessage());
+        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
