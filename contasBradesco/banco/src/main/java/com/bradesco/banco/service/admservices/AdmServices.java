@@ -4,8 +4,8 @@ import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.ContaSaldo;
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
-import com.bradesco.banco.exceptions.ExceptionsType;
-import com.bradesco.banco.exceptions.PersonExceptions;
+import com.bradesco.banco.exceptions.ExceptionType;
+import com.bradesco.banco.exceptions.PersonException;
 import com.bradesco.banco.response.dto.Clientes;
 import com.bradesco.banco.request.ClienteRequest;
 import com.bradesco.banco.repository.ClienteRepository;
@@ -14,9 +14,7 @@ import com.bradesco.banco.service.HelperConversor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +35,7 @@ public class AdmServices implements IadmServices{
            conta.setId(UUID.randomUUID().toString());
             return this.repository.save(conta);
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.NAO_CADASTRADO.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(ExceptionType.NAO_CADASTRADO.getMessage()));
     }
 
     @Override
@@ -47,7 +45,7 @@ public class AdmServices implements IadmServices{
             conta.setId(UUID.randomUUID().toString());
             return this.repository.save(conta);
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.NAO_CADASTRADO.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(ExceptionType.NAO_CADASTRADO.getMessage()));
     }
 
     @Override
@@ -56,7 +54,7 @@ public class AdmServices implements IadmServices{
         if (conta.isPresent()) {
             return HelperConversor.conversor(conta.get());
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.CONTA_NAO_ENCONTRADA.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(ExceptionType.CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -65,7 +63,7 @@ public class AdmServices implements IadmServices{
         if (conta.isPresent()) {
         return conta.get();
     }
-        throw new PersonExceptions(ExceptionsType.valueOf(ExceptionsType.CONTA_NAO_ENCONTRADA.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(ExceptionType.CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override

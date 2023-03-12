@@ -2,16 +2,16 @@ package com.bradesco.banco.usecases;
 
 import com.bradesco.banco.domain.Cartao;
 import com.bradesco.banco.domain.Conta;
-import com.bradesco.banco.exceptions.ExceptionsType;
-import com.bradesco.banco.exceptions.PersonExceptions;
+import com.bradesco.banco.exceptions.ExceptionType;
+import com.bradesco.banco.exceptions.PersonException;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.bradesco.banco.exceptions.ExceptionsType.CARTAO_NAO_APROVADO;
-import static com.bradesco.banco.exceptions.ExceptionsType.CONTA_NAO_ENCONTRADA;
+import static com.bradesco.banco.exceptions.ExceptionType.CARTAO_NAO_APROVADO;
+import static com.bradesco.banco.exceptions.ExceptionType.CONTA_NAO_ENCONTRADA;
 
 @Service
 public class ValidarLimiteCartaoCredito {
@@ -37,9 +37,9 @@ public class ValidarLimiteCartaoCredito {
                     }
                 } else {
 
-                    throw new PersonExceptions(ExceptionsType.valueOf(CARTAO_NAO_APROVADO.getMessage()));
+                    throw new PersonException(ExceptionType.valueOf(CARTAO_NAO_APROVADO.getMessage()));
                 }
             }
-            throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
+            throw new PersonException(ExceptionType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
         }
     }

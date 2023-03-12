@@ -1,15 +1,15 @@
 package com.bradesco.banco.usecases;
 
 import com.bradesco.banco.domain.Conta;
-import com.bradesco.banco.exceptions.ExceptionsType;
-import com.bradesco.banco.exceptions.PersonExceptions;
+import com.bradesco.banco.exceptions.ExceptionType;
+import com.bradesco.banco.exceptions.PersonException;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.bradesco.banco.exceptions.ExceptionsType.CONTA_INATIVA;
+import static com.bradesco.banco.exceptions.ExceptionType.CONTA_INATIVA;
 
 @Service
 public class VerificacaoContasInativas {
@@ -27,6 +27,6 @@ public class VerificacaoContasInativas {
             }
             return contaRepository.save(conta.get());
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_INATIVA.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(CONTA_INATIVA.getMessage()));
     }
 }

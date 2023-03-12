@@ -3,7 +3,7 @@ package com.bradesco.banco.exceptions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public enum ExceptionsType {
+public enum ExceptionType {
     CLIENTE_NAO_ENCONTRADO(1, "Id do cliente não encontrado"),
     CONTA_NAO_ENCONTRADA(2, "Id da conta não encontrado. "),
     CONVERSAO_NEGADA(3, "Conta não pode ser convertida, método válido somente para conta corrente ."),
@@ -12,13 +12,13 @@ public enum ExceptionsType {
     NAO_CADASTRADO(6, "Não foi possível cadastrar cliente. "),
     CONTA_INATIVA(7, "Conta inativa ou negativada. "),
     CARTAO_NAO_APROVADO(8, "Solicitação de cartão negada temporariamente. ");
-    private final Logger logger = LogManager.getLogger(ExceptionsType.class);
+    private final Logger logger = LogManager.getLogger(ExceptionType.class);
 
     private final int code;
 
     private final String message;
 
-    ExceptionsType(int code, String message) {
+    ExceptionType(int code, String message) {
         this.code = code;
         this.message = message;
     }

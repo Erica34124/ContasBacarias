@@ -1,15 +1,15 @@
 package com.bradesco.banco.exceptions;
 
-public class PersonExceptions extends RuntimeException {
+public class PersonException extends RuntimeException {
     private static final long serialVersionUID = 1L;
-    private ExceptionsType exceptionsType;
+    private ExceptionType exceptionsType;
 
-    public PersonExceptions(ExceptionsType exceptionClasse) {
+    public PersonException(ExceptionType exceptionClasse) {
          super(exceptionClasse.name());
         this.exceptionsType = exceptionClasse;
     }
 
-    public ExceptionsType getExceptionsType() {
+    public ExceptionType getExceptionsType() {
         return exceptionsType;
     }
 }

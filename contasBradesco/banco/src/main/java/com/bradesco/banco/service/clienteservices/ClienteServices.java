@@ -1,19 +1,18 @@
 package com.bradesco.banco.service.clienteservices;
 
 import com.bradesco.banco.domain.Conta;
-import com.bradesco.banco.exceptions.ExceptionsType;
-import com.bradesco.banco.exceptions.PersonExceptions;
+import com.bradesco.banco.exceptions.ExceptionType;
+import com.bradesco.banco.exceptions.PersonException;
 import com.bradesco.banco.response.dto.ContaClienteDao;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.Optional;
 
-import static com.bradesco.banco.exceptions.ExceptionsType.CONTA_NAO_ENCONTRADA;
-import static com.bradesco.banco.exceptions.ExceptionsType.SALDO_INSUFICIENTE;
-import static com.bradesco.banco.exceptions.ExceptionsType.SERVICO_INATIVO;
+import static com.bradesco.banco.exceptions.ExceptionType.CONTA_NAO_ENCONTRADA;
+import static com.bradesco.banco.exceptions.ExceptionType.SALDO_INSUFICIENTE;
+import static com.bradesco.banco.exceptions.ExceptionType.SERVICO_INATIVO;
 
 @Service
 public class ClienteServices implements IclienteServices {
@@ -36,7 +35,7 @@ public class ClienteServices implements IclienteServices {
                 return contaDados;
             }
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(SALDO_INSUFICIENTE.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(SALDO_INSUFICIENTE.getMessage()));
     }
 
     @Override
@@ -51,7 +50,7 @@ public class ClienteServices implements IclienteServices {
             contaRepository.save(conta);
             return contaRequest;
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -61,7 +60,7 @@ public class ClienteServices implements IclienteServices {
         if (conta.isPresent()) {
             return conta;
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -81,7 +80,7 @@ public class ClienteServices implements IclienteServices {
 
             return true;
         }
-        throw new PersonExceptions(ExceptionsType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
+        throw new PersonException(ExceptionType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
     }
 
     @Override
@@ -89,7 +88,7 @@ public class ClienteServices implements IclienteServices {
         try {
             return helperContaCliente.converterClienteConta(contaId);
         } catch (IllegalArgumentException exception) {
-            throw new PersonExceptions(ExceptionsType.valueOf(SERVICO_INATIVO.getMessage()));
+            throw new PersonException(ExceptionType.valueOf(SERVICO_INATIVO.getMessage()));
         }
     }
 }

@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 @Service
 @Data
-public class Clientes implements Serializable {
-    private static final long serialVerdionUID = 2L;
+public class Clientes {
     @NotNull
     private String id;
     @NotBlank
@@ -16,6 +15,8 @@ public class Clientes implements Serializable {
     private String nome;
     @NotBlank
     @NotNull
-    private Cpf cpf;
+    private String cpf;
     private Endereco endereco;
+
+    public Telefone telefone;
 }

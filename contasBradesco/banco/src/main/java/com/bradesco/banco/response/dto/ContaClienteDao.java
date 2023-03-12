@@ -1,20 +1,27 @@
 package com.bradesco.banco.response.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class ContaClienteDao {
     private String id;
     private String nome;
-    private Cpf cpf;
+    private Telefone telefone;
+    @NotNull
+    @NotBlank
+    private String cpf;
     private Endereco endereco;
     private Boolean ativo;
     private String clienteId;
     private Double saldo;
     private String cartao;
 
-    public ContaClienteDao(String id, String nome, Cpf cpf, Endereco endereco,
+    public ContaClienteDao(String id, String nome, Telefone telefone, String cpf, Endereco endereco,
                            Boolean ativo, String clienteId,
                            Double saldo, String cartao) {
         this.id = id;
         this.nome = nome;
+        this.telefone = telefone;
         this.cpf = cpf;
         this.endereco = endereco;
         this.ativo = ativo;
@@ -39,11 +46,11 @@ public class ContaClienteDao {
         this.nome = nome;
     }
 
-    public Cpf getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Cpf cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -80,6 +87,14 @@ public class ContaClienteDao {
 
     public String getCartao() {
         return cartao;
+    }
+
+    public Telefone getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
     }
 
     public void setCartao(String cartao) {
