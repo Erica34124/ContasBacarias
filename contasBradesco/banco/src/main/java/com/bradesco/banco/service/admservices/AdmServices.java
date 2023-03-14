@@ -6,7 +6,7 @@ import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
 import com.bradesco.banco.exceptions.ExceptionType;
 import com.bradesco.banco.exceptions.PersonException;
-import com.bradesco.banco.response.dto.Clientes;
+import com.bradesco.banco.response.dto.Cliente;
 import com.bradesco.banco.request.ClienteRequest;
 import com.bradesco.banco.repository.ClienteRepository;
 import com.bradesco.banco.repository.ContaRepository;
@@ -29,7 +29,7 @@ public class AdmServices implements IadmServices{
     ClienteRequest clienteRequest;
     @Override
     public Poupanca cadastrarPoupanca(Poupanca conta) {
-        Optional<Clientes> cliente = clienteRepository.findById(conta.getClienteId());
+        Optional<Cliente> cliente = clienteRepository.findById(conta.getClienteId());
 
         if (cliente.isPresent()) {
            conta.setId(UUID.randomUUID().toString());
@@ -40,7 +40,7 @@ public class AdmServices implements IadmServices{
 
     @Override
     public Corrente cadastrarCorrente(Corrente conta) {
-        Optional<Clientes> cliente = clienteRepository.findById(conta.getClienteId());
+        Optional<Cliente> cliente = clienteRepository.findById(conta.getClienteId());
         if (cliente.isPresent()) {
             conta.setId(UUID.randomUUID().toString());
             return this.repository.save(conta);
@@ -77,7 +77,7 @@ public class AdmServices implements IadmServices{
     }
 
     @Override
-    public Clientes buscarClientePorId(String clienteId) {
+    public Cliente buscarClientePorId(String clienteId) {
         return clienteRequest.consultaCliente(clienteId);
     }
 }

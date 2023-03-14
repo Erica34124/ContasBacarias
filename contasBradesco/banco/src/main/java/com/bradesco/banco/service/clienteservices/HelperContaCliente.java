@@ -3,7 +3,7 @@ package com.bradesco.banco.service.clienteservices;
 import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.exceptions.ExceptionType;
 import com.bradesco.banco.exceptions.PersonException;
-import com.bradesco.banco.response.dto.Clientes;
+import com.bradesco.banco.response.dto.Cliente;
 import com.bradesco.banco.response.dto.ContaClienteDao;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class HelperContaCliente {
         Conta contaReq = conta.get();
 
         if (conta.isPresent()) {
-            Clientes cliente = consultaCliente(conta.get().getClienteId());
+            Cliente cliente = consultaCliente(conta.get().getClienteId());
 
             ContaClienteDao clienteResponse = new ContaClienteDao(contaReq.getId(),cliente.getNome(), cliente.getTelefone(), cliente.getCpf(),
                     cliente.getEndereco(),contaReq.getAtivo(),  contaReq.getClienteId(), contaReq.getSaldo(),

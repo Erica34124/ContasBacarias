@@ -4,7 +4,7 @@ import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.ContaSaldo;
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
-import com.bradesco.banco.response.dto.Clientes;
+import com.bradesco.banco.response.dto.Cliente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,5 +21,5 @@ public interface IadmServices {
     Page<Conta> mostrarDadosDaContaPagina(Pageable pageable);
 
     List<Conta> lista();
-    public Clientes buscarClientePorId(String clienteId);
+    public Cliente buscarClientePorId(String clienteId);
 }

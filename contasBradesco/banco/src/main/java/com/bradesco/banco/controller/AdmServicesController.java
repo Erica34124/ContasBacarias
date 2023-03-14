@@ -5,7 +5,7 @@ import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.domain.ContaSaldo;
 import com.bradesco.banco.domain.Corrente;
 import com.bradesco.banco.domain.Poupanca;
-import com.bradesco.banco.response.dto.Clientes;
+import com.bradesco.banco.response.dto.Cliente;
 import com.bradesco.banco.service.admservices.AdmServices;
 import com.bradesco.banco.usecases.AtivarChequeEspecial;
 import com.bradesco.banco.usecases.ValidarLimiteCartaoCredito;
@@ -81,7 +81,7 @@ public class AdmServicesController {
     }
 
     @GetMapping(path = "/buscarClientePorId/{id}")
-    public ResponseEntity<Clientes> buscarClientePorId(@PathVariable(name = "id", required = true) String id){
+    public ResponseEntity<Cliente> buscarClientePorId(@PathVariable(name = "id", required = true) String id){
         return ResponseEntity.ok(this.admServices.buscarClientePorId(id));
     }
 

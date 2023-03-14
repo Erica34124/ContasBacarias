@@ -4,10 +4,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 @Service
 @Data
-public class Clientes {
+public class Cliente {
     @NotNull
     private String id;
     @NotBlank
