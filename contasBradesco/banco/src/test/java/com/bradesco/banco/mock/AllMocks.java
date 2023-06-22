@@ -104,7 +104,7 @@ public class AllMocks {
         Conta conta = new Conta();
         conta.setAtivo(true);
         conta.setSaldo(8000d);
-        conta.setClienteId("4567");
+        conta.setClienteId("58ac8878-f9d3-4bbe-93eb-4a970b54bb1f");
         conta.setCartao("Elo");
 
         return conta;
@@ -154,7 +154,56 @@ public class AllMocks {
         return conta;
     }
 
+    public static List<Cliente> listaClientesComTodosCampos(){
+        List<Cliente> clientes = new ArrayList<>(5);
+
+        Cliente cliente1 = clienteComTodosCampos();
+        cliente1.setId("123");
+        Cliente cliente2 = clienteComTodosCampos();
+        cliente2.setId("456");
+        Cliente cliente3 = clienteComTodosCampos();
+        cliente3.setId("789");
+        Cliente cliente4 = clienteComTodosCampos();
+        Cliente cliente5 = clienteComTodosCampos();
+
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+        clientes.add(cliente3);
+        clientes.add(cliente4);
+        clientes.add(cliente5);
+
+
+        return clientes;
+    }
+
+    public static List<Conta> listaContasComTodosCampos(){
+        List<Conta> clientes = new ArrayList<>(5);
+
+        Conta cliente1 = conta2ComTodosCampos();
+        cliente1.setId("123");
+        cliente1.setClienteId("1231");
+        Conta cliente2 = conta2ComTodosCampos();
+        cliente2.setId("456");
+        cliente1.setClienteId("1231");
+//        Conta cliente3 = conta2ComTodosCampos();
+//        cliente3.setId("789");
+//        Conta cliente4 = conta2ComTodosCampos();
+//        cliente4.setId("7892");
+//        Conta cliente5 = conta2ComTodosCampos();
+//        cliente5.setId("7891");
+
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+//        clientes.add(cliente3);
+//        clientes.add(cliente4);
+//        clientes.add(cliente5);
+
+
+        return clientes;
+    }
+
     public static List<ClienteContaResponse> listaComTodosCampos(){
+
         List<ClienteContaResponse> lista = new ArrayList<>(5);
         ClienteContaResponse conta1 = clienteContaResponseComTodosCampos();
         ClienteContaResponse conta2 = clienteContaResponseComTodosCampos();

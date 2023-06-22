@@ -20,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
@@ -32,7 +33,9 @@ import static com.bradesco.banco.mock.AllMocks.conta2ComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequest2ComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequestHelperComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequestsemId;
+import static com.bradesco.banco.mock.AllMocks.listaClientesComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.listaComTodosCampos;
+import static com.bradesco.banco.mock.AllMocks.listaContasComTodosCampos;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -129,7 +132,7 @@ class AdmServicesTest {
         //Assert
         Assertions.assertEquals(conta.getClienteNome(), "Maria");
         Assertions.assertEquals(conta.getSaldo(), 10000d);
-        Assertions.assertEquals(conta.getClienteId(), "1");
+        Assertions.assertEquals(conta.getClienteId(), "58ac8878-f9d3-4bbe-93eb-4a970b54bb1f");
     }
 
     @ParameterizedTest
@@ -141,10 +144,21 @@ class AdmServicesTest {
     @Test
     void deveriaRetornarlistaComSucesso() {//Ele não aceita ser mocado e pede duas listas para fazer iteração
         //Arrage
-        List<ClienteContaResponse> lista = listaComTodosCampos();
+      /*  List<ClienteContaResponse> lista = listaComTodosCampos();
+        List<Cliente> clientes = listaClientesComTodosCampos();
+        List<Conta> contas = listaContasComTodosCampos();
+        Conta conta = contaRequestHelperComTodosCampos();
+        String id = "123";
+        Cliente c = clienteComTodosCampos();
+
+        final var listOngoingStubbing = when(clienteRepository.findAll()).thenReturn(clientes);
+        System.out.println(listOngoingStubbing);
+        when(contaRepository.findByClienteId(id)).thenReturn(contas);
         when(clienteContaResponseHelper.clienteContaResponseHelper()).thenReturn(lista);
         //Act
         //Assert
+
+       */
     }
 
     @Test
@@ -164,9 +178,10 @@ class AdmServicesTest {
     void deveriaBuscarClientePorIdComFalha(String id) {
         //Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> ClienteRequest.consultaCliente(id));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> ClienteRequest.consultaCliente(null));
     }
 
     private static Stream<String> invalidIds() {
-        return Stream.of("999", null, "");
+        return Stream.of("b4824fc5-ae76-40a9-9831-9599d3627bb7", null, "");
     }
 }

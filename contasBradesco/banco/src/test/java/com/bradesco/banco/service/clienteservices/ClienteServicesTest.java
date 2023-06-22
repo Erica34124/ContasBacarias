@@ -114,7 +114,7 @@ class ClienteServicesTest {
         //Action
         clienteServices.tranferir(conta, conta2, 200d);
         //Assert
-        Assertions.assertEquals(conta2.getSaldo(), 3200d);
+        Assertions.assertEquals(conta2.getSaldo(), 10200d);
     }
 
     @Test

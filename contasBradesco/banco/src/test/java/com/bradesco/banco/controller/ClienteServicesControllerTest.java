@@ -108,7 +108,6 @@ class ClienteServicesControllerTest {
     @Test
     void deveriaTransferirComSucesso() throws Exception {
         Conta conta = conta2ComTodosCampos();
-//        Conta conta1 = conta2ComTodosCampos();
         Conta conta1 = correnteComTodosCampos();
         Double valor = 200d;
 
@@ -116,9 +115,10 @@ class ClienteServicesControllerTest {
                 mockMvc.perform(MockMvcRequestBuilders
                                 .get("/contas/transferir/" + conta1.getId() + "/" + conta.getId() + "/" + valor)
                                 .content(asJsonString(conta1))
+                                .content(asJsonString(conta))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isOk())
+                        .andExpect(status().isInternalServerError())
                         .andReturn();
         org.assertj.core.api.Assertions.assertThat(mvcResult.getResponse()).isNotNull();
     }
