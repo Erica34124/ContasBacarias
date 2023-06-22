@@ -1,19 +1,17 @@
 package com.bradesco.banco.domain;
 
 
-public class Corrente extends Conta{
-    private Boolean chequeEspecial;
+public class Corrente extends Conta {
+    private boolean chequeEspecial;
 
-    public Corrente(String id, Boolean ativo, String clienteId, String clienteNome, Double saldo, String cartao) {
-        super(id, ativo, clienteId, clienteNome, saldo, cartao);
+    public Corrente() {
     }
 
-
-    public Boolean getChequeEspecial() {
+    public boolean isChequeEspecial() {
         return chequeEspecial;
     }
 
-    public void setChequeEspecial(Boolean chequeEspecial) {
+    public void setChequeEspecial(boolean chequeEspecial) {
         this.chequeEspecial = chequeEspecial;
     }
 }

@@ -1,9 +1,8 @@
 package com.bradesco.banco.service.admservices;
 
 import com.bradesco.banco.domain.Conta;
-import com.bradesco.banco.domain.ContaSaldo;
-import com.bradesco.banco.domain.Corrente;
-import com.bradesco.banco.domain.Poupanca;
+import com.bradesco.banco.request.ContaRequest;
+import com.bradesco.banco.response.ClienteContaResponse;
 import com.bradesco.banco.response.dto.Cliente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,15 +10,15 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IadmServices {
-    public Poupanca cadastrarPoupanca(Poupanca conta);
+    public ClienteContaResponse cadastrarPoupanca(ContaRequest conta);
 
-    public Corrente cadastrarCorrente(Corrente conta);
+    public ClienteContaResponse cadastrarCorrente(ContaRequest request);
 
-    public ContaSaldo buscarContaSaldoPorId(String id);
+    public ClienteContaResponse buscarContaSaldoPorId(String id);
     public Conta buscarContaPorId(String id);
 
     Page<Conta> mostrarDadosDaContaPagina(Pageable pageable);
 
-    List<Conta> lista();
+    List<ClienteContaResponse> lista();
     public Cliente buscarClientePorId(String clienteId);
 }

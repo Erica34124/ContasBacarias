@@ -3,9 +3,12 @@ package com.bradesco.banco.service.clienteservices;
 import com.bradesco.banco.domain.Conta;
 import com.bradesco.banco.exceptions.ExceptionType;
 import com.bradesco.banco.exceptions.PersonException;
+import com.bradesco.banco.helpers.ContaClienteHelper;
 import com.bradesco.banco.response.dto.ContaClienteDao;
 import com.bradesco.banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,15 +18,16 @@ import static com.bradesco.banco.exceptions.ExceptionType.SALDO_INSUFICIENTE;
 import static com.bradesco.banco.exceptions.ExceptionType.SERVICO_INATIVO;
 
 @Service
+@Qualifier("clienteServices")
 public class ClienteServices implements IclienteServices {
     @Autowired
     ContaRepository contaRepository;
     @Autowired
-    HelperContaCliente helperContaCliente;
+    ContaClienteHelper contaClienteHelper;
     private Double saldo;
 
     @Override
-    public Object sacar(String id, Double valor) {
+    public Optional<Conta> sacar(String id, Double valor) {
         Optional<Conta> contaDados = this.contaRepository.findById(id);
 
         if (contaDados.isPresent()) {
@@ -33,9 +37,11 @@ public class ClienteServices implements IclienteServices {
                 conta.setSaldo(saldo -= valor);
                 contaRepository.save(conta);
                 return contaDados;
+            } else {
+                throw new PersonException(ExceptionType.valueOf(SALDO_INSUFICIENTE.getMessage()));
             }
         }
-        throw new PersonException(ExceptionType.valueOf(SALDO_INSUFICIENTE.getMessage()));
+        return contaDados;
     }
 
     @Override
@@ -86,7 +92,7 @@ public class ClienteServices implements IclienteServices {
     @Override
     public ContaClienteDao buscarDadosCompletos(String contaId) {
         try {
-            return helperContaCliente.converterClienteConta(contaId);
+            return contaClienteHelper.converterClienteConta(contaId);
         } catch (IllegalArgumentException exception) {
             throw new PersonException(ExceptionType.valueOf(SERVICO_INATIVO.getMessage()));
         }

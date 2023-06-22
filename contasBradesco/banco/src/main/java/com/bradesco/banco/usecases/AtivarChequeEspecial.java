@@ -19,8 +19,8 @@ public class AtivarChequeEspecial {
         Optional<Conta> conta = contaRepository.findById(id);
         if (conta.isPresent()) {
             try {
-                Optional<Corrente> corrente = Optional.of((Corrente) conta.get());
-                Corrente contaGet = corrente.get();
+                Optional<Corrente> corrente = Optional.of(new Corrente());
+                Corrente contaGet = (Corrente) conta.get();
                 if (contaGet.getSaldo() >= 1000) {
                     contaGet.setChequeEspecial(true);
                 } else {

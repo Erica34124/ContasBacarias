@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+import static com.bradesco.banco.exceptions.ExceptionType.SALDO_INSUFICIENTE;
+
 @RestController
 @RequestMapping("/contas")
 public class ClienteServicesController {
@@ -20,35 +22,38 @@ public class ClienteServicesController {
     private ClienteServices clienteServices;
 
     @PutMapping(path = "/sacar/{id}/{valor}")
-    public ResponseEntity<Object> sacar(@PathVariable(name = "id") String id,
-                                        @PathVariable(name = "valor") Double valor){
-       Object saque = clienteServices.sacar(id, valor);
-    if (saque == null){
-        return ResponseEntity.notFound().build();
-    }
-        return ResponseEntity.ok(saque);
+    public ResponseEntity<?> sacar(@PathVariable(name = "id") String id,
+                                   @PathVariable(name = "valor") Double valor) {
+
+        try {
+            Object saque = clienteServices.sacar(id, valor);
+            return ResponseEntity.ok(saque);
+        } catch(Exception e){
+            return ResponseEntity.noContent().header("Informe: ", SALDO_INSUFICIENTE.getMessage()).build();
+        }
+
     }
 
     @GetMapping(path = "/saldo/{id}")
-    public ResponseEntity<Optional<Conta>> consultaSaldo(@PathVariable(name = "id") String id){
-        return ResponseEntity.ok(this.clienteServices.consularSaldo(id)) ;
+    public ResponseEntity<Optional<Conta>> consultaSaldo(@PathVariable(name = "id") String id) {
+        return ResponseEntity.ok(this.clienteServices.consularSaldo(id));
     }
 
     @GetMapping(path = "/buscarDadosCompletos/{id}")
-    public ResponseEntity<ContaClienteDao> MonstraDadosConta(@PathVariable(name = "id") String id){
+    public ResponseEntity<ContaClienteDao> MonstraDadosConta(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(this.clienteServices.buscarDadosCompletos(id));
     }
 
     @PutMapping(path = "/depositar/{id}/{valor}")
     public ResponseEntity<Object> depositar(@PathVariable("id") String id,
-                                        @PathVariable(name = "valor") Double valor){
+                                            @PathVariable(name = "valor") Double valor) {
         return ResponseEntity.ok(this.clienteServices.depositar(id, valor));
     }
 
     @GetMapping(path = "/transferir/{idO}/{idD}/{valor}")
     public ResponseEntity<Object> transferir(@PathVariable(name = "idO") Conta idO,
                                              @PathVariable(name = "idD") Conta idD,
-                                            @PathVariable(name = "valor") Double valor){
+                                             @PathVariable(name = "valor") Double valor) {
         return ResponseEntity.ok(this.clienteServices.tranferir(idO, idD, valor));
     }
 }

@@ -1,0 +1,14 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ñÇÊøÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(í„©Ù
+N	java:S106"9Replace this use of System.out or System.err by a logger.(í„©Ù
+S	java:S106!"9Replace this use of System.out or System.err by a logger.(æ¨¤šøÿÿÿÿ
+S	java:S106$"9Replace this use of System.out or System.err by a logger.(„Ê†«üÿÿÿÿ
+B
+java:S1602&",Remove useless curly braces around statement(Â¼æ
+S	java:S106'"9Replace this use of System.out or System.err by a logger.(•öü›ıÿÿÿÿ
+N	java:S106)"9Replace this use of System.out or System.err by a logger.(Ø¯“¬
+R
+java:S1128"<Remove this unused import 'com.bradesco.banco.domain.Conta'.(´€ñ‡
+U
+java:S1128"?Remove this unused import 'com.bradesco.banco.domain.Corrente'.(Àî¾ß

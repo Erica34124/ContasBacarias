@@ -1,14 +1,9 @@
 package com.bradesco.banco.response.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 public class ContaClienteDao {
     private String id;
     private String nome;
     private Telefone telefone;
-    @NotNull
-    @NotBlank
     private String cpf;
     private Endereco endereco;
     private Boolean ativo;
