@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+import static com.bradesco.banco.exceptions.ExceptionType.CONTA_NAO_ENCONTRADA;
 import static com.bradesco.banco.exceptions.ExceptionType.SALDO_INSUFICIENTE;
 
 @RestController
@@ -28,7 +29,7 @@ public class ClienteServicesController {
         try {
             Object saque = clienteServices.sacar(id, valor);
             return ResponseEntity.ok(saque);
-        } catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.noContent().header("Informe: ", SALDO_INSUFICIENTE.getMessage()).build();
         }
 
@@ -51,9 +52,14 @@ public class ClienteServicesController {
     }
 
     @GetMapping(path = "/transferir/{idO}/{idD}/{valor}")
-    public ResponseEntity<Object> transferir(@PathVariable(name = "idO") Conta idO,
-                                             @PathVariable(name = "idD") Conta idD,
-                                             @PathVariable(name = "valor") Double valor) {
-        return ResponseEntity.ok(this.clienteServices.tranferir(idO, idD, valor));
+    public ResponseEntity<?> transferir(@PathVariable(name = "idO") Conta idO,
+                                        @PathVariable(name = "idD") Conta idD,
+                                        @PathVariable(name = "valor") Double valor) {
+        try {
+            Object transferir = this.clienteServices.tranferir(idO, idD, valor);
+            return ResponseEntity.ok(transferir);
+        } catch (Exception e) {
+            return ResponseEntity.noContent().header("Informe: ", CONTA_NAO_ENCONTRADA.getMessage()).build();
+        }
     }
 }
