@@ -176,28 +176,25 @@ public class AllMocks {
         return clientes;
     }
 
-    public static List<Conta> listaContasComTodosCampos(){
-        List<Conta> clientes = new ArrayList<>(5);
+    public static List<ClienteContaResponse> listaContasComTodosCampos(){
+        List<ClienteContaResponse> clientes = new ArrayList<>(5);
 
-        Conta cliente1 = conta2ComTodosCampos();
-        cliente1.setId("123");
+        ClienteContaResponse cliente1 = clienteContaResponseComTodosCampos();
+        cliente1.setNome("Ana");
+        cliente1.setClienteId("123");
+        cliente1.setContaId("1231");
+        ClienteContaResponse cliente2 = clienteContaResponseComTodosCampos();
+        cliente2.setContaId("456");
+        cliente2.setNome("Paula");
         cliente1.setClienteId("1231");
-        Conta cliente2 = conta2ComTodosCampos();
-        cliente2.setId("456");
-        cliente1.setClienteId("1231");
-//        Conta cliente3 = conta2ComTodosCampos();
-//        cliente3.setId("789");
-//        Conta cliente4 = conta2ComTodosCampos();
-//        cliente4.setId("7892");
-//        Conta cliente5 = conta2ComTodosCampos();
-//        cliente5.setId("7891");
+        ClienteContaResponse cliente3 = clienteContaResponseComTodosCampos();
+        cliente3.setContaId("456");
+        cliente3.setNome("Carla");
+        cliente3.setClienteId("1231");
 
         clientes.add(cliente1);
         clientes.add(cliente2);
-//        clientes.add(cliente3);
-//        clientes.add(cliente4);
-//        clientes.add(cliente5);
-
+        clientes.add(cliente3);
 
         return clientes;
     }

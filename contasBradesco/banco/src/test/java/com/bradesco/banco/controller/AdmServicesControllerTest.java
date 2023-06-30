@@ -28,6 +28,7 @@ import static com.bradesco.banco.mock.AllMocks.clienteContaResponseComTodosCampo
 import static com.bradesco.banco.mock.AllMocks.contaComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequest2ComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.listaComTodosCampos;
+import static com.bradesco.banco.mock.AllMocks.listaContasComTodosCampos;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -137,24 +138,20 @@ class AdmServicesControllerTest {
         assertThat(response.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
-//    @Test
-//    void deveriaBuscarTodosComFalha() throws Exception {
-//        List<ClienteContaResponse> lista =  null;
-//        //Verificar como causar erro
-//
-//        var response =
-//                mockMvc.perform(MockMvcRequestBuilders
-//                                .get("/adm/buscarTodos")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .accept(MediaType.APPLICATION_JSON))
-//                        .andDo(print())
-//                        .andExpect(status().isBadRequest())
-//                        .andReturn();
-//        assertThat(response.getResponse().getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
-
     @Test
-    void monstraDadosContaPaginada() {
-        //não sei como testar paginação
+    void monstraDadosContaPaginada() throws Exception {
+        List<ClienteContaResponse> lista = listaContasComTodosCampos();
+
+        var response =
+                mockMvc.perform(MockMvcRequestBuilders
+                                .get("/adm/mostraDadosContaPaginada")
+                                .content(asJsonString(lista))
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                        .andDo(print())
+                        .andExpect(status().isOk())
+                        .andReturn();
+        assertThat(response.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test

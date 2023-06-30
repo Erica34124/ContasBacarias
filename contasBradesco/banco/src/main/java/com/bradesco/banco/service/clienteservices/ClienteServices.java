@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.Optional;
 
@@ -95,6 +96,8 @@ public class ClienteServices implements IclienteServices {
             return contaClienteHelper.converterClienteConta(contaId);
         } catch (IllegalArgumentException exception) {
             throw new PersonException(ExceptionType.valueOf(SERVICO_INATIVO.getMessage()));
+        } catch (HttpServerErrorException.InternalServerError exception) {
+            throw new PersonException(ExceptionType.valueOf(CONTA_NAO_ENCONTRADA.getMessage()));
         }
     }
 }

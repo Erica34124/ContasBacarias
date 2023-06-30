@@ -20,10 +20,8 @@ import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -33,9 +31,6 @@ import static com.bradesco.banco.mock.AllMocks.conta2ComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequest2ComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequestHelperComTodosCampos;
 import static com.bradesco.banco.mock.AllMocks.contaRequestsemId;
-import static com.bradesco.banco.mock.AllMocks.listaClientesComTodosCampos;
-import static com.bradesco.banco.mock.AllMocks.listaComTodosCampos;
-import static com.bradesco.banco.mock.AllMocks.listaContasComTodosCampos;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 

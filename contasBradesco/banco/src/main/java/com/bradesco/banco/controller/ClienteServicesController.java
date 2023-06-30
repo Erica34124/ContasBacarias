@@ -32,7 +32,6 @@ public class ClienteServicesController {
         } catch (Exception e) {
             return ResponseEntity.noContent().header("Informe: ", SALDO_INSUFICIENTE.getMessage()).build();
         }
-
     }
 
     @GetMapping(path = "/saldo/{id}")
